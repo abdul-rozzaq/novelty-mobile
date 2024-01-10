@@ -6,8 +6,27 @@ import 'package:novelty/screens/news_screen.dart';
 import 'package:novelty/screens/search_screen.dart';
 import 'package:novelty/screens/select_location_screen.dart';
 
-class HomeTab extends StatelessWidget {
+class HomeTab extends StatefulWidget {
   const HomeTab({super.key});
+
+  @override
+  State<HomeTab> createState() => _HomeTabState();
+}
+
+class _HomeTabState extends State<HomeTab> {
+  ScrollController scrollController = ScrollController();
+  double radius = 15;
+
+  @override
+  void initState() {
+    super.initState();
+
+    scrollController.addListener(() {
+      setState(() {
+        radius = scrollController.offset > 20 ? 0 : 15;
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +35,8 @@ class HomeTab extends StatelessWidget {
 
     return Column(
       children: <Widget>[
-        Container(
+        AnimatedContainer(
+          duration: const Duration(milliseconds: 300),
           padding: EdgeInsets.only(
             bottom: size.width * .05,
             left: size.width * .05,
@@ -25,9 +45,9 @@ class HomeTab extends StatelessWidget {
           ),
           decoration: BoxDecoration(
             color: Theme.of(context).primaryColor,
-            borderRadius: const BorderRadius.only(
-              bottomLeft: Radius.circular(15),
-              bottomRight: Radius.circular(15),
+            borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(radius),
+              bottomRight: Radius.circular(radius),
             ),
           ),
           child: SafeArea(
@@ -116,6 +136,7 @@ class HomeTab extends StatelessWidget {
         ),
         Expanded(
           child: SingleChildScrollView(
+            controller: scrollController,
             padding: EdgeInsets.only(bottom: bottomPadding + 10),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,

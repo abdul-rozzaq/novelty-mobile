@@ -28,7 +28,7 @@ class _ProfileTabState extends State<ProfileTab> {
             bottom: topPadding / 2,
           ),
           decoration: const BoxDecoration(
-            color: Colors.blueAccent,
+            color: Colors.teal,
             borderRadius: BorderRadius.only(
               bottomLeft: Radius.circular(15),
               bottomRight: Radius.circular(15),
@@ -54,18 +54,18 @@ class _ProfileTabState extends State<ProfileTab> {
                     Container(
                       padding: const EdgeInsets.all(15),
                       decoration: BoxDecoration(
-                        color: Colors.blueAccent.withOpacity(.1),
+                        color: Colors.teal.withOpacity(.1),
                         borderRadius: BorderRadius.circular(10),
                       ),
-                      child: Icon(
+                      child: const Icon(
                         Icons.person,
                         size: 30,
-                        color: Theme.of(context).primaryColor,
+                        color: Colors.teal,
                       ),
                     ),
                     const SizedBox(width: 20),
                     const Text(
-                      'Abdusalomov Abdurazzoq',
+                      'Ziyo Nur Savdo',
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
@@ -74,80 +74,26 @@ class _ProfileTabState extends State<ProfileTab> {
                   ],
                 ),
                 const SizedBox(height: 20),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-                        decoration: BoxDecoration(
-                          color: Colors.transparent,
-                          borderRadius: BorderRadius.circular(10),
-                          border: Border.all(
-                            width: 1,
-                            color: Colors.grey[300]!,
-                          ),
-                        ),
-                        child: const Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Jarayonda',
-                              style: TextStyle(fontSize: 10, color: Colors.grey),
-                            ),
-                            Text(
-                              '0 so\'m',
-                              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    const SizedBox(width: 20),
-                    Expanded(
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-                        decoration: BoxDecoration(
-                          color: Colors.black,
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: const Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Keshbek balansi',
-                              style: TextStyle(fontSize: 10, color: Colors.white),
-                            ),
-                            Text(
-                              '0 so\'m',
-                              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
                 const SizedBox(height: 20),
-                RowButtonX(
+                RowButtonY(
                   onTap: () => Navigator.push(context, CupertinoPageRoute(builder: (context) => const HomeScreen())),
                   // onTap: () => Navigator.pushAndRemoveUntil(context, CupertinoPageRoute(builder: (context) => const HomeScreen()), (route) => false),
                   icon: Icons.shopping_basket_rounded,
-                  label: 'Do\'kon bo\'limi',
+                  label: 'Haridor bo\'limi',
                 ),
                 const SizedBox(height: 10),
-                RowButtonX(
+                RowButtonY(
                   onTap: () => Navigator.push(context, CupertinoPageRoute(builder: (context) => const SettingsScreen())),
                   icon: Icons.settings_rounded,
                   label: 'Settings',
                 ),
                 const SizedBox(height: 10),
-                const RowButtonX(
+                const RowButtonY(
                   icon: Icons.credit_card,
                   label: 'Keshbek',
                 ),
                 const SizedBox(height: 10),
-                const RowButtonX(
+                const RowButtonY(
                   icon: Icons.info,
                   label: 'Ilova haqida',
                 ),

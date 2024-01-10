@@ -2,6 +2,7 @@
 
 import 'package:barcode_scan2/platform_wrapper.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:novelty/components/buttons.dart';
 import 'package:novelty/screens/search_screen.dart';
 import 'package:novelty/screens/tabs/category_tab.dart';
@@ -21,6 +22,8 @@ class HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark.copyWith(statusBarIconBrightness: Brightness.light));
 
     return Scaffold(
       extendBody: true,

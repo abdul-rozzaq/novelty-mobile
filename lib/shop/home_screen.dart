@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:novelty/components/buttons.dart';
+import 'package:novelty/shop/tabs/home_tab.dart';
+import 'package:novelty/shop/tabs/profile_tab.dart';
+import 'package:novelty/shop/tabs/collections_tab.dart';
+import 'package:novelty/shop/tabs/orders_tab.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -8,24 +13,64 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  int pageIndex = 0;
+
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Home Screen'),
-        backgroundColor: Colors.black,
-      ),
-      body: GridView.builder(
-        padding: const EdgeInsets.all(10),
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, crossAxisSpacing: 10, mainAxisSpacing: 10, mainAxisExtent: 270),
-        itemBuilder: (context, index) => const CardBookWidget(),
+      backgroundColor: Colors.grey[100],
+      // extendBody: true,
+      body: IndexedStack(
+        index: pageIndex,
+        children: const [
+          HomeTab(),
+          OrdersTab(),
+          CollectionsTab(),
+          ProfileTab(),
+        ],
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.black,
+        backgroundColor: Colors.teal,
         onPressed: () {},
         child: const Icon(
           Icons.add,
           color: Colors.white,
+        ),
+      ),
+      bottomNavigationBar: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 10),
+        height: size.height * .08,
+        color: Colors.white,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            IconButtonZ(
+              icon: Icons.home_rounded,
+              isActive: pageIndex == 0,
+              label: 'Uy',
+              callback: () => setState(() => pageIndex = 0),
+            ),
+            IconButtonZ(
+              icon: Icons.list_alt_rounded,
+              isActive: pageIndex == 1,
+              label: 'Buyurtma',
+              callback: () => setState(() => pageIndex = 1),
+            ),
+            IconButtonZ(
+              icon: Icons.collections_bookmark_rounded,
+              isActive: pageIndex == 2,
+              label: 'To\'plam',
+              callback: () => setState(() => pageIndex = 2),
+            ),
+            IconButtonZ(
+              icon: Icons.person,
+              isActive: pageIndex == 3,
+              label: 'Profil',
+              callback: () => setState(() => pageIndex = 3),
+            ),
+          ],
         ),
       ),
     );
