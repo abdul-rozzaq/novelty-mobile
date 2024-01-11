@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:novelty/components/buttons.dart';
-import 'package:novelty/screens/settings_screen.dart';
-import 'package:novelty/shop/home_screen.dart';
+import 'package:novelty/screens/consumer/settings_screen.dart';
+import 'package:novelty/screens/shop/home_screen.dart';
 
 class ProfileTab extends StatefulWidget {
   const ProfileTab({super.key});
@@ -74,64 +74,64 @@ class _ProfileTabState extends State<ProfileTab> {
                   ],
                 ),
                 const SizedBox(height: 20),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-                        decoration: BoxDecoration(
-                          color: Colors.transparent,
-                          borderRadius: BorderRadius.circular(10),
-                          border: Border.all(
-                            width: 1,
-                            color: Colors.grey[300]!,
-                          ),
-                        ),
-                        child: const Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Jarayonda',
-                              style: TextStyle(fontSize: 10, color: Colors.grey),
-                            ),
-                            Text(
-                              '0 so\'m',
-                              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    const SizedBox(width: 20),
-                    Expanded(
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-                        decoration: BoxDecoration(
-                          color: Colors.black,
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: const Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Keshbek balansi',
-                              style: TextStyle(fontSize: 10, color: Colors.white),
-                            ),
-                            Text(
-                              '0 so\'m',
-                              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+                // Row(
+                //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //   children: [
+                //     Expanded(
+                //       child: Container(
+                //         padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+                //         decoration: BoxDecoration(
+                //           color: Colors.transparent,
+                //           borderRadius: BorderRadius.circular(10),
+                //           border: Border.all(
+                //             width: 1,
+                //             color: Colors.grey[300]!,
+                //           ),
+                //         ),
+                //         child: const Column(
+                //           crossAxisAlignment: CrossAxisAlignment.start,
+                //           children: [
+                //             Text(
+                //               'Jarayonda',
+                //               style: TextStyle(fontSize: 10, color: Colors.grey),
+                //             ),
+                //             Text(
+                //               '0 so\'m',
+                //               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                //             ),
+                //           ],
+                //         ),
+                //       ),
+                //     ),
+                //     const SizedBox(width: 20),
+                //     Expanded(
+                //       child: Container(
+                //         padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+                //         decoration: BoxDecoration(
+                //           color: Colors.black,
+                //           borderRadius: BorderRadius.circular(10),
+                //         ),
+                //         child: const Column(
+                //           crossAxisAlignment: CrossAxisAlignment.start,
+                //           children: [
+                //             Text(
+                //               'Keshbek balansi',
+                //               style: TextStyle(fontSize: 10, color: Colors.white),
+                //             ),
+                //             Text(
+                //               '0 so\'m',
+                //               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
+                //             ),
+                //           ],
+                //         ),
+                //       ),
+                //     ),
+                //   ],
+                // ),
                 const SizedBox(height: 20),
                 RowButtonX(
-                  onTap: () => Navigator.push(context, CupertinoPageRoute(builder: (context) => const HomeScreen())),
-                  // onTap: () => Navigator.pushAndRemoveUntil(context, CupertinoPageRoute(builder: (context) => const HomeScreen()), (route) => false),
+                  // onTap: () => Navigator.push(context, CupertinoPageRoute(builder: (context) => const HomeScreen())),
+                  onTap: () => Navigator.pushAndRemoveUntil(context, CupertinoPageRoute(builder: (context) => const HomeScreen()), (route) => false),
                   icon: Icons.shopping_basket_rounded,
                   label: 'Do\'kon bo\'limi',
                 ),

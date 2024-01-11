@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:novelty/components/buttons.dart';
-import 'package:novelty/shop/tabs/home_tab.dart';
-import 'package:novelty/shop/tabs/profile_tab.dart';
-import 'package:novelty/shop/tabs/collections_tab.dart';
-import 'package:novelty/shop/tabs/orders_tab.dart';
+import 'package:novelty/screens/shop/tabs/home_tab.dart';
+import 'package:novelty/screens/shop/tabs/profile_tab.dart';
+import 'package:novelty/screens/shop/tabs/collections_tab.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -21,24 +20,24 @@ class _HomeScreenState extends State<HomeScreen> {
 
     return Scaffold(
       backgroundColor: Colors.grey[100],
-      // extendBody: true,
       body: IndexedStack(
         index: pageIndex,
         children: const [
           HomeTab(),
-          OrdersTab(),
           CollectionsTab(),
           ProfileTab(),
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.teal,
-        onPressed: () {},
-        child: const Icon(
-          Icons.add,
-          color: Colors.white,
-        ),
-      ),
+      floatingActionButton: pageIndex != 2
+          ? FloatingActionButton(
+              backgroundColor: Colors.teal,
+              onPressed: () {},
+              child: const Icon(
+                Icons.add,
+                color: Colors.white,
+              ),
+            )
+          : null,
       bottomNavigationBar: Container(
         padding: const EdgeInsets.symmetric(horizontal: 10),
         height: size.height * .08,
@@ -53,22 +52,16 @@ class _HomeScreenState extends State<HomeScreen> {
               callback: () => setState(() => pageIndex = 0),
             ),
             IconButtonZ(
-              icon: Icons.list_alt_rounded,
+              icon: Icons.collections_bookmark_rounded,
               isActive: pageIndex == 1,
-              label: 'Buyurtma',
+              label: 'To\'plam',
               callback: () => setState(() => pageIndex = 1),
             ),
             IconButtonZ(
-              icon: Icons.collections_bookmark_rounded,
-              isActive: pageIndex == 2,
-              label: 'To\'plam',
-              callback: () => setState(() => pageIndex = 2),
-            ),
-            IconButtonZ(
               icon: Icons.person,
-              isActive: pageIndex == 3,
+              isActive: pageIndex == 2,
               label: 'Profil',
-              callback: () => setState(() => pageIndex = 3),
+              callback: () => setState(() => pageIndex = 2),
             ),
           ],
         ),

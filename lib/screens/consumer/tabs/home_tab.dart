@@ -2,9 +2,9 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:novelty/components/buttons.dart';
-import 'package:novelty/screens/news_screen.dart';
-import 'package:novelty/screens/search_screen.dart';
-import 'package:novelty/screens/select_location_screen.dart';
+import 'package:novelty/screens/consumer/news_screen.dart';
+import 'package:novelty/screens/consumer/search_screen.dart';
+import 'package:novelty/screens/consumer/select_location_screen.dart';
 
 class HomeTab extends StatefulWidget {
   const HomeTab({super.key});

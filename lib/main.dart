@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:novelty/screens/home_screen.dart';
+import 'package:novelty/screens/auth/primary_screen.dart';
+import 'package:novelty/screens/consumer/home_screen.dart';
 import 'package:novelty/services/themes.dart';
 
 void main() {
@@ -20,7 +21,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: lightTheme,
       themeMode: ThemeMode.light,
-      home: const HomeScreen(),
+      home: const PrimaryScreen(),
+      // home: const HomeScreen(),
     );
   }
 }

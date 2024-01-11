@@ -36,9 +36,9 @@ class IconButtonY extends StatelessWidget {
     return InkWell(
       onTap: callback,
       child: Container(
-        width: size.width * .17,
+        width: size.width * .2,
         decoration: BoxDecoration(
-          border: Border.all(width: 1, color: Colors.white),
+          // border: Border.all(width: 1, color: Colors.white),
           borderRadius: BorderRadius.circular(10),
         ),
         padding: const EdgeInsets.all(10),

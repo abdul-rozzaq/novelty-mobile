@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:novelty/components/buttons.dart';
-import 'package:novelty/screens/settings_screen.dart';
-import 'package:novelty/shop/home_screen.dart';
+import 'package:novelty/screens/consumer/settings_screen.dart';
+import 'package:novelty/screens/consumer/home_screen.dart';
 
 class ProfileTab extends StatefulWidget {
   const ProfileTab({super.key});
@@ -76,8 +76,8 @@ class _ProfileTabState extends State<ProfileTab> {
                 const SizedBox(height: 20),
                 const SizedBox(height: 20),
                 RowButtonY(
-                  onTap: () => Navigator.push(context, CupertinoPageRoute(builder: (context) => const HomeScreen())),
-                  // onTap: () => Navigator.pushAndRemoveUntil(context, CupertinoPageRoute(builder: (context) => const HomeScreen()), (route) => false),
+                  // onTap: () => Navigator.push(context, CupertinoPageRoute(builder: (context) => const HomeScreen())),
+                  onTap: () => Navigator.pushAndRemoveUntil(context, CupertinoPageRoute(builder: (context) => const HomeScreen()), (route) => false),
                   icon: Icons.shopping_basket_rounded,
                   label: 'Haridor bo\'limi',
                 ),
@@ -85,7 +85,7 @@ class _ProfileTabState extends State<ProfileTab> {
                 RowButtonY(
                   onTap: () => Navigator.push(context, CupertinoPageRoute(builder: (context) => const SettingsScreen())),
                   icon: Icons.settings_rounded,
-                  label: 'Settings',
+                  label: 'Sozlamalar',
                 ),
                 const SizedBox(height: 10),
                 const RowButtonY(

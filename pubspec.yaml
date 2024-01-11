@@ -36,6 +36,8 @@ dependencies:
   swipeable_page_route:
   carousel_slider:
   barcode_scan2:
+  provider: ^6.1.1
+  shared_preferences: ^2.2.2
 
 dev_dependencies:
   flutter_test:

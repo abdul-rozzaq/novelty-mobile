@@ -4,11 +4,11 @@ import 'package:barcode_scan2/platform_wrapper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:novelty/components/buttons.dart';
-import 'package:novelty/screens/search_screen.dart';
-import 'package:novelty/screens/tabs/category_tab.dart';
-import 'package:novelty/screens/tabs/home_tab.dart';
-import 'package:novelty/screens/tabs/profile_tab.dart';
-import 'package:novelty/screens/tabs/wishlist_tab.dart';
+import 'package:novelty/screens/consumer/search_screen.dart';
+import 'package:novelty/screens/consumer/tabs/category_tab.dart';
+import 'package:novelty/screens/consumer/tabs/home_tab.dart';
+import 'package:novelty/screens/consumer/tabs/profile_tab.dart';
+import 'package:novelty/screens/consumer/tabs/wishlist_tab.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -57,39 +57,43 @@ class HomeScreenState extends State<HomeScreen> {
             ),
             Transform.translate(
               offset: const Offset(0, -30),
-              child: InkWell(
-                onTap: () async {
-                  var result = await BarcodeScanner.scan();
+              child: Transform.scale(
+                scale: 1.5,
+                child: InkWell(
+                  onTap: () async {
+                    var result = await BarcodeScanner.scan();
 
-                  if (result.rawContent != '') {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => SearchScreen(
-                          isbn: result.rawContent,
+                    if (result.rawContent != '') {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => SearchScreen(
+                            isbn: result.rawContent,
+                          ),
                         ),
+                      );
+                    }
+                  },
+                  child: Container(
+                    width: 40,
+                    height: 40,
+                    decoration: BoxDecoration(
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(.3),
+                          offset: const Offset(0, 4),
+                          blurRadius: 15,
+                        )
+                      ],
+                      color: Colors.blueGrey[900],
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                    child: const Center(
+                      child: Icon(
+                        Icons.qr_code_scanner_outlined,
+                        color: Colors.white,
+                        size: 20,
                       ),
-                    );
-                  }
-                },
-                child: Container(
-                  width: size.width * .15,
-                  height: size.width * .15,
-                  decoration: BoxDecoration(
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(.3),
-                        offset: const Offset(0, 4),
-                        blurRadius: 15,
-                      )
-                    ],
-                    color: Colors.blueGrey[900],
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                  child: const Center(
-                    child: Icon(
-                      Icons.qr_code_scanner_outlined,
-                      color: Colors.white,
                     ),
                   ),
                 ),
@@ -98,7 +102,7 @@ class HomeScreenState extends State<HomeScreen> {
             IconButtonY(
               icon: Icons.favorite,
               isActive: pageIndex == 2,
-              label: 'Istak',
+              label: 'Saqlangan',
               callback: () => setState(() => pageIndex = 2),
             ),
             IconButtonY(
