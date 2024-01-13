@@ -58,7 +58,7 @@ class HomeScreenState extends State<HomeScreen> {
             Transform.translate(
               offset: const Offset(0, -30),
               child: Transform.scale(
-                scale: 1.5,
+                scale: 1.40,
                 child: InkWell(
                   onTap: () async {
                     var result = await BarcodeScanner.scan();
@@ -86,7 +86,7 @@ class HomeScreenState extends State<HomeScreen> {
                         )
                       ],
                       color: Colors.blueGrey[900],
-                      borderRadius: BorderRadius.circular(5),
+                      borderRadius: BorderRadius.circular(10),
                     ),
                     child: const Center(
                       child: Icon(

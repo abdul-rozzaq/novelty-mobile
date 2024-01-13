@@ -1,26 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
-import 'package:novelty/screens/auth/otp_screen.dart';
+import 'package:novelty/models/token_model.dart';
+import 'package:novelty/models/user_model.dart';
+import 'package:novelty/screens/consumer/home_screen.dart';
+import 'package:novelty/services/local_storage.dart';
+import 'package:novelty/services/requests.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class SignUpScreen extends StatefulWidget {
+  const SignUpScreen({super.key, required this.number});
+
+  final String number;
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<SignUpScreen> createState() => SignUpScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
-  var phoneFormatter = MaskTextInputFormatter(mask: '## ### ## ##', filter: {"#": RegExp(r'[0-9]')}, type: MaskAutoCompletionType.lazy);
-  TextEditingController controller = TextEditingController();
+class SignUpScreenState extends State<SignUpScreen> {
+  TextEditingController firstNameController = TextEditingController();
+  TextEditingController lastNameController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
 
     return Scaffold(
-      body: SafeArea(
-        child: Center(
+      body: Center(
+        child: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -31,12 +36,12 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               const SizedBox(height: 20),
               const Text(
-                'Novelty Market',
+                'Ro\'yhatdan o\'tish',
                 style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 5),
               const Text(
-                'Biz bilan yanada qulay',
+                'Ma\'lumotlaringizni kiriting',
                 style: TextStyle(fontSize: 12, color: Colors.grey),
               ),
               const SizedBox(height: 50),
@@ -51,20 +56,28 @@ class _LoginScreenState extends State<LoginScreen> {
                 decoration: BoxDecoration(
                   color: Colors.transparent,
                   borderRadius: BorderRadius.circular(3),
-                  boxShadow: const [],
                 ),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     TextField(
-                      keyboardType: TextInputType.number,
-                      controller: controller,
-                      inputFormatters: [phoneFormatter],
-                      decoration: const InputDecoration(labelText: 'Telefon raqam', prefix: Text('+998 '), contentPadding: EdgeInsets.only(bottom: 10)),
+                      controller: firstNameController,
+                      decoration: const InputDecoration(
+                        labelText: 'Ism',
+                        contentPadding: EdgeInsets.only(bottom: 10),
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    TextField(
+                      controller: lastNameController,
+                      decoration: const InputDecoration(
+                        labelText: 'Familiya',
+                        contentPadding: EdgeInsets.only(bottom: 10),
+                      ),
                     ),
                     const SizedBox(height: 15),
                     InkWell(
-                      onTap: () => login(),
+                      onTap: () => signup(),
                       child: Ink(
                         width: double.maxFinite,
                         height: 45,
@@ -99,7 +112,24 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  Future login() async {
-    if (controller.text.length == 12) return Get.to(() => OtpScreen(number: '+998${controller.text.removeAllWhitespace}'), transition: Transition.downToUp);
+  signup() async {
+    Response response = await Requests.postData(
+      '/auth/signup/',
+      {
+        'first_name': firstNameController.text,
+        'last_name': lastNameController.text,
+        'phone': widget.number,
+      },
+    );
+
+    if (response.statusCode == 200) {
+      User user = User.fromJson(response.body['user']);
+      Token token = Token.fromJson(response.body['token']);
+
+      Get.find<AuthService>().save(token);
+      Get.find<UserService>().save(user);
+
+      return Get.offAll(() => const HomeScreen());
+    }
   }
 }

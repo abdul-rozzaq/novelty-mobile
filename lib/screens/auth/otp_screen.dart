@@ -1,18 +1,26 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:novelty/models/token_model.dart';
+import 'package:novelty/models/user_model.dart';
+import 'package:novelty/screens/auth/signup_screen.dart';
 import 'package:novelty/screens/consumer/home_screen.dart';
+import 'package:novelty/services/local_storage.dart';
+import 'package:novelty/services/requests.dart';
 import 'package:pinput/pinput.dart';
 
 class OtpScreen extends StatefulWidget {
-  const OtpScreen({super.key});
+  const OtpScreen({super.key, required this.number});
+
+  final String number;
 
   @override
   State<OtpScreen> createState() => _OtpScreenState();
 }
 
 class _OtpScreenState extends State<OtpScreen> {
-  var timer;
+  late Timer timer;
 
   int time = 120;
 
@@ -64,7 +72,7 @@ class _OtpScreenState extends State<OtpScreen> {
             SizedBox(
               width: size.width * .8,
               child: Pinput(
-                onCompleted: (value) => Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const HomeScreen()), (route) => false),
+                onCompleted: (value) => navigate(),
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 pinAnimationType: PinAnimationType.slide,
                 autofocus: true,
@@ -98,7 +106,7 @@ class _OtpScreenState extends State<OtpScreen> {
             ),
             const SizedBox(height: 10),
             InkWell(
-              onTap: () => Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const HomeScreen()), (route) => false),
+              onTap: () => navigate(),
               child: Ink(
                 width: size.width * .8,
                 height: 45,
@@ -145,5 +153,25 @@ class _OtpScreenState extends State<OtpScreen> {
   void dispose() {
     timer.cancel();
     super.dispose();
+  }
+
+  Future navigate() async {
+    Response response = await Requests.postData('/auth/login/', {
+      'phone': widget.number,
+    });
+
+    if (response.statusCode != null) {
+      if (response.statusCode == 200) {
+        User user = User.fromJson(response.body['user']);
+        Token token = Token.fromJson(response.body['token']);
+
+        Get.find<AuthService>().save(token);
+        Get.find<UserService>().save(user);
+
+        Get.offAll(() => const HomeScreen());
+      } else if (response.statusCode == 401) {
+        Get.offAll(() => SignUpScreen(number: widget.number));
+      }
+    }
   }
 }

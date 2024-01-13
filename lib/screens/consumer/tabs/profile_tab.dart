@@ -1,23 +1,28 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:novelty/components/buttons.dart';
+import 'package:novelty/models/user_model.dart';
 import 'package:novelty/screens/consumer/settings_screen.dart';
 import 'package:novelty/screens/shop/home_screen.dart';
+import 'package:novelty/services/local_storage.dart';
 
 class ProfileTab extends StatefulWidget {
   const ProfileTab({super.key});
 
   @override
-  State<ProfileTab> createState() => _ProfileTabState();
+  State<ProfileTab> createState() => ProfileTabState();
 }
 
-class _ProfileTabState extends State<ProfileTab> {
+class ProfileTabState extends State<ProfileTab> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
 
     final topPadding = MediaQuery.of(context).padding.top;
     final bottomPadding = MediaQuery.of(context).padding.bottom;
+
+    User user = Get.find<UserService>().get();
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -64,9 +69,9 @@ class _ProfileTabState extends State<ProfileTab> {
                       ),
                     ),
                     const SizedBox(width: 20),
-                    const Text(
-                      'Abdusalomov Abdurazzoq',
-                      style: TextStyle(
+                    Text(
+                      user.getFullName,
+                      style: const TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
                       ),

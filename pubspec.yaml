@@ -36,11 +36,20 @@ dependencies:
   swipeable_page_route:
   carousel_slider:
   barcode_scan2:
-  provider: ^6.1.1
   shared_preferences: ^2.2.2
   mask_text_input_formatter: ^2.7.0
   pinput: ^3.0.1
-  
+  http: ^1.1.0
+  get: ^4.6.6
+  connectivity_plus: ^5.0.2
+  objectbox: ^2.4.0
+  get_storage: ^2.1.1
+  cached_network_image: ^3.3.1
+  flutter_cache_manager: ^3.3.1
+  path_provider: ^2.1.2
+  file: ^7.0.0
+  path:
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -52,6 +61,3 @@ flutter:
 
   assets:
     - assets/images/
-
-
-  

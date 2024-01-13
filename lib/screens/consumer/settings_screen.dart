@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:novelty/components/buttons.dart';
+import 'package:novelty/screens/auth/login_screen.dart';
+import 'package:novelty/services/local_storage.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -15,34 +18,40 @@ class SettingsScreen extends StatelessWidget {
           style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 16),
         ),
       ),
-      body: const SingleChildScrollView(
-        padding: EdgeInsets.all(20),
-        physics: BouncingScrollPhysics(),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(20),
+        physics: const BouncingScrollPhysics(),
         child: Column(
           children: [
-            RowButtonX(
+            const RowButtonX(
               icon: Icons.person,
               label: 'Shaxsiy ma\'lumotlar',
             ),
-            SizedBox(height: 15),
-            RowButtonX(
+            const SizedBox(height: 15),
+            const RowButtonX(
               icon: Icons.translate,
               label: 'Ilova tili',
             ),
-            SizedBox(height: 15),
-            RowButtonX(
+            const SizedBox(height: 15),
+            const RowButtonX(
               icon: CupertinoIcons.moon_fill,
               label: 'Mavzu',
             ),
-            SizedBox(height: 15),
-            RowButtonX(
+            const SizedBox(height: 15),
+            const RowButtonX(
               icon: Icons.person_off_rounded,
               iconColor: Colors.red,
               labelColor: Colors.red,
               label: 'Profilni o\'chirish',
             ),
-            SizedBox(height: 15),
+            const SizedBox(height: 15),
             RowButtonX(
+              onTap: () {
+                Get.find<AuthService>().delete();
+                Get.find<UserService>().delete();
+
+                Get.offAll(const LoginScreen());
+              },
               icon: Icons.logout_outlined,
               iconColor: Colors.red,
               labelColor: Colors.red,
