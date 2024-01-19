@@ -1,30 +1,27 @@
 import 'package:get/get.dart';
+import 'package:novelty/models/token_model.dart';
 import 'package:novelty/services/local_storage.dart';
 
 class Requests {
-  static String domain = 'http://192.168.1.2:8000';
-  // static String domain = 'http://192.168.223.65:8000';
-  // static String domain = 'http://192.168.137.65:8000';
+  // static String domain = 'http://192.168.1.2:8000';
+  static String domain = 'https://webnovelty.pythonanywhere.com';
+  // static String domain = 'http://0.0.0.0:8000';
 
   static Future<Response> fetchData(String uri) async {
-    Map token = Get.find<AuthService>().get();
+    Token? token = Get.find<AuthService>().get();
 
-    var response = await GetConnect().get(domain + uri, headers: {'Authorization': 'Token ${token['key']}'});
-    return response;
+    return await GetConnect(timeout: const Duration(minutes: 55)).get(domain + uri, headers: {'Authorization': 'Token ${token?.key}'});
   }
 
   static Future<Response> postData(String uri, Map<String, dynamic> body) async {
-    var response = await GetConnect().post(domain + uri, body);
-    return response;
+    return await GetConnect(timeout: const Duration(minutes: 55)).post(domain + uri, body);
   }
 
   static Future<Response> putData(String uri, Map<String, dynamic> body) async {
-    var response = await GetConnect().put(domain + uri, body);
-    return response;
+    return await GetConnect(timeout: const Duration(minutes: 55)).put(domain + uri, body);
   }
 
   static Future<Response> deleteData(String uri) async {
-    var response = await GetConnect().delete(domain + uri);
-    return response;
+    return await GetConnect(timeout: const Duration(minutes: 55)).delete(domain + uri);
   }
 }

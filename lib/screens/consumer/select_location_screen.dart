@@ -65,11 +65,11 @@ class _SelectLocationScreenState extends State<SelectLocationScreen> {
       ),
       bottomNavigationBar: InkWell(
         onTap: () {
-          User user = Get.find<UserService<User>>().get();
+          User user = Get.find<UserService>().get();
 
           user.district = location;
 
-          Get.find<UserService<User>>().save(user);
+          Get.find<UserService>().save(user);
           Get.find<AppController>().loadUser();
 
           Get.back();

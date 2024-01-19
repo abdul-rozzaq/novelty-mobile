@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:novelty/models/token_model.dart';
 import 'package:novelty/models/user_model.dart';
 
 class AbstractStorage extends GetxService {
@@ -25,12 +26,23 @@ class AbstractStorage extends GetxService {
 class AuthService extends AbstractStorage {
   @override
   get key => 'token';
+
+  @override
+  get() {
+    var x = super.get() != null
+        ? super.get() is Token
+            ? super.get()
+            : Token.fromJson(super.get())
+        : null;
+
+    return x;
+  }
 }
 
-class UserService<T> extends AbstractStorage {
+class UserService extends AbstractStorage {
   @override
   get key => 'user';
 
   @override
-  T get() => super.get() is User ? super.get() : User.fromJson(super.get());
+  get() => super.get() is User ? super.get() : User.fromJson(super.get());
 }

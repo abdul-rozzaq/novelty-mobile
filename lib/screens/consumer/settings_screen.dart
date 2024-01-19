@@ -50,7 +50,9 @@ class SettingsScreen extends StatelessWidget {
                 Get.find<AuthService>().delete();
                 Get.find<UserService>().delete();
 
-                Get.offAll(const LoginScreen());
+                // Get.find<AppController>().loadUser();
+
+                Get.offAll(() => const LoginScreen());
               },
               icon: Icons.logout_outlined,
               iconColor: Colors.red,

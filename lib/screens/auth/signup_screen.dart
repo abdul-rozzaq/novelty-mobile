@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:novelty/controllers/app_controller.dart';
 import 'package:novelty/models/token_model.dart';
 import 'package:novelty/models/user_model.dart';
 import 'package:novelty/screens/consumer/home_screen.dart';
@@ -18,6 +19,13 @@ class SignUpScreen extends StatefulWidget {
 class SignUpScreenState extends State<SignUpScreen> {
   TextEditingController firstNameController = TextEditingController();
   TextEditingController lastNameController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+
+    // Get.put(AuthService<Token>());
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -128,6 +136,8 @@ class SignUpScreenState extends State<SignUpScreen> {
 
       Get.find<AuthService>().save(token);
       Get.find<UserService>().save(user);
+
+      Get.putAsync<AppController>(() async => AppController(), permanent: true);
 
       return Get.offAll(() => const HomeScreen());
     }
