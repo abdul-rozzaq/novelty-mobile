@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:novelty/controllers/network_controller.dart';
 import 'package:novelty/dependecy_injection.dart';
 import 'package:novelty/screens/auth/login_screen.dart';
@@ -10,6 +11,7 @@ import 'package:novelty/services/themes.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await GetStorage.init();
   await DependencyInjection.init();
   runApp(const MyApp());
 }

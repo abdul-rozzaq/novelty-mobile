@@ -30,6 +30,7 @@ class AppController extends GetxController {
 
   loadUser() {
     user = Get.put(UserService()).get();
+    update();
   }
 
   Future<void> loadCarouselItems() async {

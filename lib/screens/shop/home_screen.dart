@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:novelty/components/buttons.dart';
+import 'package:novelty/screens/shop/tabs/collections_tab.dart';
 import 'package:novelty/screens/shop/tabs/home_tab.dart';
 import 'package:novelty/screens/shop/tabs/profile_tab.dart';
-import 'package:novelty/screens/shop/tabs/collections_tab.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});

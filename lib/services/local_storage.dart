@@ -9,10 +9,6 @@ class AbstractStorage extends GetxService {
 
   GetStorage box = GetStorage();
 
-  Future<AbstractStorage> init() async {
-    await GetStorage.init();
-    return this;
-  }
 
   Future save(dynamic object) => box.write(key, object);
 

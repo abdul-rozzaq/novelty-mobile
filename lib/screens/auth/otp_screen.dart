@@ -11,7 +11,6 @@ import 'package:novelty/services/local_storage.dart';
 import 'package:novelty/services/requests.dart';
 import 'package:pinput/pinput.dart';
 
-
 class OtpScreen extends StatefulWidget {
   const OtpScreen({super.key, required this.number});
 
@@ -169,7 +168,7 @@ class _OtpScreenState extends State<OtpScreen> {
 
         Get.find<AuthService>().save(token);
         Get.find<UserService>().save(user);
-        Get.find<AppController>().loadUser();
+        Get.put(AppController()).loadUser();
 
         Get.offAll(() => const HomeScreen());
       } else if (response.statusCode == 401) {
