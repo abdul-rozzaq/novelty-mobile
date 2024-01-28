@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:novelty/components/buttons.dart';
 import 'package:novelty/components/cunsomer_htbook_widget.dart';
+import 'package:novelty/models/book_model.dart';
 import 'package:novelty/screens/consumer/news_screen.dart';
 import 'package:novelty/screens/consumer/search_screen.dart';
 import 'package:novelty/screens/consumer/select_location_screen.dart';
@@ -20,18 +21,6 @@ class HomeTab extends StatefulWidget {
 
 class _HomeTabState extends State<HomeTab> {
   ScrollController scrollController = ScrollController();
-  double radius = 15;
-
-  @override
-  void initState() {
-    super.initState();
-
-    scrollController.addListener(() {
-      setState(() {
-        radius = scrollController.offset > 20 ? 0 : 15;
-      });
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,8 +31,7 @@ class _HomeTabState extends State<HomeTab> {
       init: AppController(),
       builder: (controller) => Column(
         children: <Widget>[
-          AnimatedContainer(
-            duration: const Duration(milliseconds: 300),
+          Container(
             padding: EdgeInsets.only(
               bottom: size.width * .05,
               left: size.width * .05,
@@ -52,9 +40,9 @@ class _HomeTabState extends State<HomeTab> {
             ),
             decoration: BoxDecoration(
               color: Theme.of(context).primaryColor,
-              borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(radius),
-                bottomRight: Radius.circular(radius),
+              borderRadius: const BorderRadius.only(
+                bottomLeft: Radius.circular(15),
+                bottomRight: Radius.circular(15),
               ),
             ),
             child: SafeArea(
@@ -143,109 +131,98 @@ class _HomeTabState extends State<HomeTab> {
             ),
           ),
           Expanded(
-            child: SingleChildScrollView(
-              controller: scrollController,
-              padding: EdgeInsets.only(bottom: bottomPadding + 10),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const SizedBox(height: 15),
-                  CarouselSlider(
-                    items: controller.carousel
-                        .map(
-                          (e) => Container(
-                            width: double.maxFinite,
-                            margin: const EdgeInsets.symmetric(horizontal: 10),
-                            decoration: BoxDecoration(
-                              color: Colors.grey.withOpacity(.4),
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(8),
-                              child: CachedNetworkImage(
-                                imageUrl: Requests.domain + e,
-                                fit: BoxFit.cover,
+            child: RefreshIndicator(
+              onRefresh: () => controller.loadBooks(),
+              child: SingleChildScrollView(
+                controller: scrollController,
+                padding: EdgeInsets.only(bottom: bottomPadding + 10),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const SizedBox(height: 15),
+                    CarouselSlider(
+                      items: controller.carousel
+                          .map(
+                            (e) => Container(
+                              width: double.maxFinite,
+                              margin: const EdgeInsets.symmetric(horizontal: 10),
+                              decoration: BoxDecoration(
+                                color: Colors.grey.withOpacity(.4),
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(8),
+                                child: CachedNetworkImage(
+                                  imageUrl: Requests.domain + e,
+                                  fit: BoxFit.cover,
+                                ),
                               ),
                             ),
-                          ),
-                        )
-                        .toList(),
-                    options: CarouselOptions(
-                      viewportFraction: .9,
-                      height: 180,
-                      autoPlayInterval: const Duration(seconds: 2),
-                      autoPlay: true,
-                      aspectRatio: 16 / 9,
-                    ),
-                  ),
-                  const SizedBox(height: 15),
-                  const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 15),
-                    child: Text(
-                      'Ommabob kitoblar',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
+                          )
+                          .toList(),
+                      options: CarouselOptions(
+                        viewportFraction: .9,
+                        height: 180,
+                        autoPlayInterval: const Duration(seconds: 2),
+                        autoPlay: true,
+                        aspectRatio: 16 / 9,
                       ),
                     ),
-                  ),
-                  const SizedBox(height: 10),
-                  SizedBox(
-                    height: 130,
-                    child: ListView.builder(
-                      padding: const EdgeInsets.symmetric(horizontal: 5),
-                      shrinkWrap: true,
-                      itemBuilder: (context, index) => const HBookWidget(),
-                      itemCount: 20,
-                      scrollDirection: Axis.horizontal,
-                    ),
-                  ),
-                  const SizedBox(height: 15),
-                  const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 15),
-                    child: Text(
-                      'Ilmiy kitoblar',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
+                    const SizedBox(height: 15),
+                    const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 15),
+                      child: Text(
+                        'Ommabob kitoblar',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                        ),
                       ),
                     ),
-                  ),
-                  const SizedBox(height: 10),
-                  SizedBox(
-                    height: 130,
-                    child: ListView.builder(
-                      padding: const EdgeInsets.symmetric(horizontal: 5),
-                      shrinkWrap: true,
-                      itemBuilder: (context, index) => const HBookWidget(),
-                      itemCount: 20,
-                      scrollDirection: Axis.horizontal,
-                    ),
-                  ),
-                  const SizedBox(height: 15),
-                  const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 15),
-                    child: Text(
-                      'Tarixiy kitoblar',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
+                    const SizedBox(height: 10),
+                    SizedBox(
+                      height: 130,
+                      child: ListView.builder(
+                        padding: const EdgeInsets.symmetric(horizontal: 5),
+                        shrinkWrap: true,
+                        itemBuilder: (context, index) {
+                          Book book = controller.popularBooks[index];
+
+                          return HBookWidget(book: book);
+                        },
+                        itemCount: controller.popularBooks.length,
+                        scrollDirection: Axis.horizontal,
                       ),
                     ),
-                  ),
-                  const SizedBox(height: 10),
-                  SizedBox(
-                    height: 130,
-                    child: ListView.builder(
-                      padding: const EdgeInsets.symmetric(horizontal: 5),
-                      shrinkWrap: true,
-                      itemBuilder: (context, index) => const HBookWidget(),
-                      itemCount: 20,
-                      scrollDirection: Axis.horizontal,
+                    const SizedBox(height: 15),
+                    const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 15),
+                      child: Text(
+                        'Ilmiy kitoblar',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                        ),
+                      ),
                     ),
-                  ),
-                ],
+                    const SizedBox(height: 10),
+                    SizedBox(
+                      height: 130,
+                      child: ListView.builder(
+                        padding: const EdgeInsets.symmetric(horizontal: 5),
+                        shrinkWrap: true,
+                        itemBuilder: (context, index) {
+                          Book book = controller.scientificBooks[index];
+
+                          return HBookWidget(book: book);
+                        },
+                        itemCount: controller.popularBooks.length,
+                        scrollDirection: Axis.horizontal,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           )

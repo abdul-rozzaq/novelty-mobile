@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:novelty/controllers/app_controller.dart';
+import 'package:novelty/models/book_model.dart';
 
 class CategoryTab extends StatefulWidget {
   const CategoryTab({super.key});
@@ -53,7 +54,7 @@ class CategoryTabState extends State<CategoryTab> {
               ),
               itemCount: controller.genres.length,
               itemBuilder: (context, index) {
-                Map<String, dynamic> genre = controller.genres[index];
+                Genre genre = controller.genres[index];
 
                 return InkWell(
                   onTap: () {},
@@ -67,20 +68,20 @@ class CategoryTabState extends State<CategoryTab> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Icon(
-                          BookGenreIcons.getIcon(genre['name']),
+                          BookGenreIcons.getIcon(genre.name),
                           size: 30,
                           color: Colors.blueAccent,
                         ),
                         const SizedBox(height: 5),
                         Text(
-                          genre['name'],
+                          genre.name,
                           style: const TextStyle(
                             fontSize: 14,
                           ),
                         ),
-                        const Text(
-                          '18 ta',
-                          style: TextStyle(fontSize: 10),
+                        Text(
+                          '${controller.booksCountByGenre(genre)} ta ',
+                          style: const TextStyle(fontSize: 10),
                         ),
                       ],
                     ),

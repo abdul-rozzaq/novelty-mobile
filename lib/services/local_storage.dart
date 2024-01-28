@@ -9,7 +9,6 @@ class AbstractStorage extends GetxService {
 
   GetStorage box = GetStorage();
 
-
   Future save(dynamic object) => box.write(key, object);
 
   Future delete() async => box.remove(key);
@@ -41,4 +40,9 @@ class UserService extends AbstractStorage {
 
   @override
   get() => super.get() is User ? super.get() : User.fromJson(super.get());
+}
+
+class LikedBooksService extends AbstractStorage {
+  @override
+  get key => 'liked_books';
 }
