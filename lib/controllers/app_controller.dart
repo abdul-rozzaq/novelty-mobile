@@ -8,11 +8,16 @@ import 'package:novelty/services/requests.dart';
 
 class AppController extends GetxController {
   List<String> carousel = [];
+  bool isCarouselLoaded = false;
+
   List<Genre> genres = [];
   List<Region> regions = [];
-  List<String> likedBooks = [];
+
+  List<String> likedBooksIds = [];
+  List<Book> get likedBooks => List.from(books.where((element) => likedBooksIds.contains(element.id)));
 
   List<Book> books = [];
+  bool isBookLoaded = false;
 
   List<Book> popularBooks = [];
   List<Book> scientificBooks = [];
@@ -29,11 +34,13 @@ class AppController extends GetxController {
 
   Future startLoad() async {
     loadUser();
+    loadLikedBooks();
+
+    await loadBooks();
     await loadCarouselItems();
     await loadGenres();
     await loadLocations();
-    await loadBooks();
-    loadLikedBooks();
+
     update();
   }
 
@@ -48,6 +55,10 @@ class AppController extends GetxController {
     if (response.statusCode == 200) {
       carousel = (response.body as List).map<String>((e) => e.toString()).toList();
     }
+
+    isCarouselLoaded = true;
+
+    update();
   }
 
   Future<void> loadBooks() async {
@@ -55,11 +66,10 @@ class AppController extends GetxController {
 
     if (response.statusCode == 200) {
       books = Book.fromListMap(response.body);
+      isBookLoaded = true;
 
-      books.shuffle();
-
-      popularBooks = books.where((book) => book.genres.where((genre) => [4, 3, 9, 7].contains(genre.id)).isNotEmpty).toList();
-      scientificBooks = books.where((book) => book.genres.where((genre) => [5, 2, 10, 11, 14].contains(genre.id)).isNotEmpty).toList();
+      popularBooks = shuffler(books.where((book) => book.genres.where((genre) => [4, 3, 9, 7].contains(genre.id)).isNotEmpty).toList());
+      scientificBooks = shuffler(books.where((book) => book.genres.where((genre) => [5, 2, 10, 11, 14].contains(genre.id)).isNotEmpty).toList());
 
       debugPrint('PopularBooks ${popularBooks.length}');
       debugPrint('ScientificBooks ${scientificBooks.length}');
@@ -95,17 +105,17 @@ class AppController extends GetxController {
   int booksCountByGenre(Genre genre) => books.where((element) => element.genres.contains(genre)).length;
 
   loadLikedBooks() {
-    likedBooks = Get.put(LikedBooksService()).get() != null ? List<String>.from(Get.put(LikedBooksService()).get().map<String>((e) => e.toString())) : [];
+    likedBooksIds = Get.put(LikedBooksService()).get() != null ? List<String>.from(Get.put(LikedBooksService()).get().map<String>((e) => e.toString())) : [];
   }
 
   addLikeToBook(String id) {
-    if (likedBooks.contains(id)) {
-      likedBooks.remove(id);
+    if (likedBooksIds.contains(id)) {
+      likedBooksIds.remove(id);
     } else {
-      likedBooks.add(id);
+      likedBooksIds.add(id);
     }
 
-    Get.find<LikedBooksService>().save(likedBooks);
+    Get.find<LikedBooksService>().save(likedBooksIds);
 
     update();
   }

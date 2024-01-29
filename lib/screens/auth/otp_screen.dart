@@ -157,6 +157,13 @@ class _OtpScreenState extends State<OtpScreen> {
   }
 
   Future navigate() async {
+    showDialog(
+      context: context,
+      builder: (context) => const Center(
+        child: CircularProgressIndicator(),
+      ),
+    );
+
     Response response = await Requests.postData('/auth/login/', {
       'phone': widget.number,
     });

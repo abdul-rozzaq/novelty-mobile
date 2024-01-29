@@ -4,7 +4,7 @@ import 'package:novelty/controllers/network_controller.dart';
 import 'package:novelty/services/local_storage.dart';
 
 class DependencyInjection {
-  static Future<void> init() async {
+  static void init() {
     AuthService service = Get.put<AuthService>(AuthService(), permanent: true);
 
     Get.put<UserService>(UserService(), permanent: true);
@@ -12,7 +12,7 @@ class DependencyInjection {
     Get.put<NetworkController>(NetworkController(), permanent: true);
 
     if (service.get() != null) {
-      Get.putAsync<AppController>(() async => AppController(), permanent: true);
+      Get.put<AppController>(AppController(), permanent: true);
     }
   }
 }

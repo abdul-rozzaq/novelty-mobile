@@ -142,25 +142,36 @@ class _HomeTabState extends State<HomeTab> {
                   children: [
                     const SizedBox(height: 15),
                     CarouselSlider(
-                      items: controller.carousel
-                          .map(
-                            (e) => Container(
-                              width: double.maxFinite,
-                              margin: const EdgeInsets.symmetric(horizontal: 10),
-                              decoration: BoxDecoration(
-                                color: Colors.grey.withOpacity(.4),
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(8),
-                                child: CachedNetworkImage(
-                                  imageUrl: Requests.domain + e,
-                                  fit: BoxFit.cover,
+                      items: controller.isCarouselLoaded
+                          ? controller.carousel
+                              .map(
+                                (e) => Container(
+                                  width: double.maxFinite,
+                                  margin: const EdgeInsets.symmetric(horizontal: 10),
+                                  decoration: BoxDecoration(
+                                    color: Colors.grey.withOpacity(.4),
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(8),
+                                    child: CachedNetworkImage(
+                                      imageUrl: Requests.domain + e,
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
                                 ),
-                              ),
-                            ),
-                          )
-                          .toList(),
+                              )
+                              .toList()
+                          : [
+                              Container(
+                                width: double.maxFinite,
+                                margin: const EdgeInsets.symmetric(horizontal: 10),
+                                decoration: BoxDecoration(
+                                  color: Colors.grey.withOpacity(.4),
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                              )
+                            ],
                       options: CarouselOptions(
                         viewportFraction: .9,
                         height: 180,
@@ -186,12 +197,14 @@ class _HomeTabState extends State<HomeTab> {
                       child: ListView.builder(
                         padding: const EdgeInsets.symmetric(horizontal: 5),
                         shrinkWrap: true,
-                        itemBuilder: (context, index) {
-                          Book book = controller.popularBooks[index];
+                        itemBuilder: controller.isBookLoaded
+                            ? (context, index) {
+                                Book book = controller.popularBooks[index];
 
-                          return HBookWidget(book: book);
-                        },
-                        itemCount: controller.popularBooks.length,
+                                return HBookWidget(book: book);
+                              }
+                            : (context, index) => const HBookWidgetSkeleton(),
+                        itemCount: controller.isBookLoaded ? controller.popularBooks.length : 20,
                         scrollDirection: Axis.horizontal,
                       ),
                     ),
@@ -210,14 +223,16 @@ class _HomeTabState extends State<HomeTab> {
                     SizedBox(
                       height: 130,
                       child: ListView.builder(
-                        padding: const EdgeInsets.symmetric(horizontal: 5),
+                      padding: const EdgeInsets.symmetric(horizontal: 5),
                         shrinkWrap: true,
-                        itemBuilder: (context, index) {
-                          Book book = controller.scientificBooks[index];
+                        itemBuilder: controller.isBookLoaded
+                            ? (context, index) {
+                                Book book = controller.scientificBooks[index];
 
-                          return HBookWidget(book: book);
-                        },
-                        itemCount: controller.popularBooks.length,
+                                return HBookWidget(book: book);
+                              }
+                            : (context, index) => const HBookWidgetSkeleton(),
+                        itemCount: controller.isBookLoaded ? controller.popularBooks.length : 20,
                         scrollDirection: Axis.horizontal,
                       ),
                     ),

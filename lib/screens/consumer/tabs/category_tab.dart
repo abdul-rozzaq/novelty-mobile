@@ -30,10 +30,6 @@ class CategoryTabState extends State<CategoryTab> {
             ),
             decoration: const BoxDecoration(
               color: Colors.blueAccent,
-              borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(15),
-                bottomRight: Radius.circular(15),
-              ),
             ),
             width: size.width,
             child: const Center(

@@ -8,6 +8,7 @@ class Book {
   String description;
   int price;
   String shop;
+  String author;
 
   List<Genre> genres;
 
@@ -18,6 +19,7 @@ class Book {
     required this.description,
     required this.price,
     required this.shop,
+    required this.author,
     required this.genres,
   });
 
@@ -31,6 +33,7 @@ class Book {
       'description': description,
       'price': price,
       'shop': shop,
+      'author': author,
       'genres': genres.map((x) => x.toMap()).toList(),
     };
   }
@@ -43,6 +46,7 @@ class Book {
       description: map['description'] as String,
       price: map['price'] as int,
       shop: map['shop'] as String,
+      author: map['author'] as String,
       genres: List<Genre>.from(
         map['genres'].map<Genre>(
           (x) => Genre.fromMap(x),

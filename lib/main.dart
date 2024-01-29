@@ -11,8 +11,8 @@ import 'package:novelty/services/themes.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  DependencyInjection.init();
   await GetStorage.init();
-  await DependencyInjection.init();
   runApp(const MyApp());
 }
 

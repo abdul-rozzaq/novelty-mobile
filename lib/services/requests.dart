@@ -4,8 +4,8 @@ import 'package:novelty/services/local_storage.dart';
 
 class Requests {
   // static String domain = 'http://192.168.202.65:8000';
-  static String domain = 'http://192.168.1.5:8000';
-  // static String domain = 'https://webnovelty.pythonanywhere.com';
+  // static String domain = 'http://192.168.1.5:8000';
+  static String domain = 'https://webnovelty.pythonanywhere.com';
   // static String domain = 'http://0.0.0.0:8000';
 
   static Future<Response> fetchData(String uri) async {
