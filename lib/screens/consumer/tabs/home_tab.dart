@@ -223,7 +223,7 @@ class _HomeTabState extends State<HomeTab> {
                     SizedBox(
                       height: 130,
                       child: ListView.builder(
-                      padding: const EdgeInsets.symmetric(horizontal: 5),
+                        padding: const EdgeInsets.symmetric(horizontal: 5),
                         shrinkWrap: true,
                         itemBuilder: controller.isBookLoaded
                             ? (context, index) {

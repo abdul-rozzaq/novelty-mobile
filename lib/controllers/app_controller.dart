@@ -62,7 +62,7 @@ class AppController extends GetxController {
   }
 
   Future<void> loadBooks() async {
-    final response = await Requests.fetchData('/api/book/');
+    final response = await Requests.fetchData('/api/get-books/');
 
     if (response.statusCode == 200) {
       books = Book.fromListMap(response.body);
