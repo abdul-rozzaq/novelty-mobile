@@ -25,7 +25,7 @@ class SavedBook extends StatelessWidget {
               children: [
                 ClipRRect(
                   borderRadius: BorderRadius.circular(4),
-                  child: CachedNetworkImage(imageUrl: book.image[2], width: double.maxFinite, height: 200, fit: BoxFit.cover),
+                  child: CachedNetworkImage(imageUrl: book.images[0][2], width: double.maxFinite, height: 200, fit: BoxFit.cover),
                 ),
                 const SizedBox(height: 2),
                 Text(

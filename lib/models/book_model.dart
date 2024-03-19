@@ -3,7 +3,7 @@ import 'dart:convert';
 
 class Book {
   String id;
-  List<String> image;
+  List<List<String>> images;
   String name;
   String description;
   int price;
@@ -14,7 +14,7 @@ class Book {
 
   Book({
     required this.id,
-    required this.image,
+    required this.images,
     required this.name,
     required this.description,
     required this.price,
@@ -28,7 +28,7 @@ class Book {
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'id': id,
-      'image': image,
+      'image': images,
       'name': name,
       'description': description,
       'price': price,
@@ -39,9 +39,11 @@ class Book {
   }
 
   factory Book.fromMap(Map<String, dynamic> map) {
+     
+
     return Book(
       id: map['id'] as String,
-      image: List<String>.from(map['image'].map((e) => e.toString())),
+      images: List.from(map['images'].map((list) => list.map<String>((e) => e.toString()).toList())),
       name: map['name'] as String,
       description: map['description'] as String,
       price: map['price'] as int,

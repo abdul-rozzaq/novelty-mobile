@@ -39,7 +39,7 @@ class HBookWidgetState extends State<HBookWidget> {
                   ClipRRect(
                     borderRadius: BorderRadius.circular(5),
                     child: CachedNetworkImage(
-                      imageUrl: widget.book.image[3],
+                      imageUrl: widget.book.images[0][3],
                       height: double.maxFinite,
                       fit: BoxFit.cover,
                       width: 85,

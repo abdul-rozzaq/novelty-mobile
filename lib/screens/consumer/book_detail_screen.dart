@@ -30,7 +30,7 @@ class _BookDetailScreenState extends State<BookDetailScreen> {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(4),
                     child: CachedNetworkImage(
-                      imageUrl: widget.book.image[2],
+                      imageUrl: widget.book.images[0][2],
                       height: 220,
                       fit: BoxFit.cover,
                     ),
