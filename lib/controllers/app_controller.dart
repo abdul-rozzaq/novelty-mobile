@@ -68,7 +68,8 @@ class AppController extends GetxController {
       books = Book.fromListMap(response.body);
       isBookLoaded = true;
 
-      popularBooks = shuffler(books.where((book) => book.genres.where((genre) => [4, 3, 9, 7].contains(genre.id)).isNotEmpty).toList());
+      // popularBooks = shuffler(books.where((book) => book.genres.where((genre) => [4, 3, 9, 7].contains(genre.id)).isNotEmpty).toList());
+      popularBooks = shuffler(books.where((book) => true).toList());
       scientificBooks = shuffler(books.where((book) => book.genres.where((genre) => [5, 2, 10, 11, 14].contains(genre.id)).isNotEmpty).toList());
 
       debugPrint('PopularBooks ${popularBooks.length}');

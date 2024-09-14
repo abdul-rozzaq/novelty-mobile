@@ -10,7 +10,7 @@ import 'package:novelty/screens/consumer/news_screen.dart';
 import 'package:novelty/screens/consumer/search_screen.dart';
 import 'package:novelty/screens/consumer/select_location_screen.dart';
 import 'package:novelty/controllers/app_controller.dart';
-import 'package:novelty/services/requests.dart';
+
 
 class HomeTab extends StatefulWidget {
   const HomeTab({super.key});
@@ -142,7 +142,7 @@ class _HomeTabState extends State<HomeTab> {
                   children: [
                     const SizedBox(height: 15),
                     CarouselSlider(
-                      items: controller.isCarouselLoaded
+                      items: controller.isCarouselLoaded && controller.carousel.isNotEmpty
                           ? controller.carousel
                               .map(
                                 (e) => Container(
@@ -155,7 +155,7 @@ class _HomeTabState extends State<HomeTab> {
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(8),
                                     child: CachedNetworkImage(
-                                      imageUrl: Requests.domain + e,
+                                      imageUrl: e,
                                       fit: BoxFit.cover,
                                     ),
                                   ),
@@ -227,7 +227,7 @@ class _HomeTabState extends State<HomeTab> {
                         shrinkWrap: true,
                         itemBuilder: controller.isBookLoaded
                             ? (context, index) {
-                                Book book = controller.scientificBooks[index];
+                                Book book = controller.popularBooks[index];
 
                                 return HBookWidget(book: book);
                               }

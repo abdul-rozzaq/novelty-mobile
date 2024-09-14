@@ -26,6 +26,7 @@ class HomeScreenState extends State<HomeScreen> {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark.copyWith(statusBarIconBrightness: Brightness.light));
 
     return Scaffold(
+      backgroundColor: Colors.grey[100],
       extendBody: true,
       body: IndexedStack(
         index: pageIndex,
