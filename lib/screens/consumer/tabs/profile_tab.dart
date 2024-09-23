@@ -33,10 +33,6 @@ class ProfileTabState extends State<ProfileTab> {
           ),
           decoration: const BoxDecoration(
             color: Colors.blueAccent,
-            borderRadius: BorderRadius.only(
-              bottomLeft: Radius.circular(15),
-              bottomRight: Radius.circular(15),
-            ),
           ),
           width: size.width,
           child: const Center(child: Text('Mening profilim', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: Colors.white))),

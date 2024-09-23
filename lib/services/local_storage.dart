@@ -23,15 +23,7 @@ class AuthService extends AbstractStorage {
   get key => 'token';
 
   @override
-  get() {
-    var x = super.get() != null
-        ? super.get() is Token
-            ? super.get()
-            : Token.fromJson(super.get())
-        : null;
-
-    return x;
-  }
+  get() => super.get() != null ? super.get() is Token ? super.get() : Token.fromJson(super.get()) : null;
 }
 
 class UserService extends AbstractStorage {

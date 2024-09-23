@@ -11,7 +11,6 @@ import 'package:novelty/screens/consumer/search_screen.dart';
 import 'package:novelty/screens/consumer/select_location_screen.dart';
 import 'package:novelty/controllers/app_controller.dart';
 
-
 class HomeTab extends StatefulWidget {
   const HomeTab({super.key});
 
@@ -204,7 +203,7 @@ class _HomeTabState extends State<HomeTab> {
                                 return HBookWidget(book: book);
                               }
                             : (context, index) => const HBookWidgetSkeleton(),
-                        itemCount: controller.isBookLoaded ? controller.popularBooks.length : 20,
+                        itemCount: controller.popularBooks.length,
                         scrollDirection: Axis.horizontal,
                       ),
                     ),
@@ -232,7 +231,7 @@ class _HomeTabState extends State<HomeTab> {
                                 return HBookWidget(book: book);
                               }
                             : (context, index) => const HBookWidgetSkeleton(),
-                        itemCount: controller.isBookLoaded ? controller.popularBooks.length : 20,
+                        itemCount: controller.popularBooks.length,
                         scrollDirection: Axis.horizontal,
                       ),
                     ),

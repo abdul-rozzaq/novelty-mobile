@@ -1,11 +1,12 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' hide Response;
 import 'package:novelty/controllers/app_controller.dart';
 import 'package:novelty/models/token_model.dart';
 import 'package:novelty/models/user_model.dart';
 import 'package:novelty/screens/consumer/home_screen.dart';
+import 'package:novelty/services/interceptor.dart';
 import 'package:novelty/services/local_storage.dart';
-import 'package:novelty/services/requests.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key, required this.number});
@@ -121,9 +122,11 @@ class SignUpScreenState extends State<SignUpScreen> {
   }
 
   signup() async {
-    Response response = await Requests.postData(
+    DioClient client = DioClient();
+
+    Response response = await client.dio.post(
       '/auth/signup/',
-      {
+      data: {
         'first_name': firstNameController.text,
         'last_name': lastNameController.text,
         'phone': widget.number,
@@ -131,8 +134,8 @@ class SignUpScreenState extends State<SignUpScreen> {
     );
 
     if (response.statusCode == 200) {
-      User user = User.fromJson(response.body['user']);
-      Token token = Token.fromJson(response.body['token']);
+      User user = User.fromJson(response.data['user']);
+      Token token = Token.fromJson(response.data['token']);
 
       Get.find<AuthService>().save(token);
       Get.find<UserService>().save(user);

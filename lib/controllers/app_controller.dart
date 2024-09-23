@@ -3,10 +3,12 @@ import 'package:get/get.dart';
 import 'package:novelty/models/book_model.dart';
 import 'package:novelty/models/location_models.dart';
 import 'package:novelty/models/user_model.dart';
+import 'package:novelty/services/interceptor.dart';
 import 'package:novelty/services/local_storage.dart';
-import 'package:novelty/services/requests.dart';
 
 class AppController extends GetxController {
+  DioClient client = DioClient();
+
   List<String> carousel = [];
   bool isCarouselLoaded = false;
 
@@ -50,10 +52,10 @@ class AppController extends GetxController {
   }
 
   Future<void> loadCarouselItems() async {
-    final response = await Requests.fetchData('/api/carousel-items/');
+    final response = await client.dio.get('/api/carousel-items/');
 
     if (response.statusCode == 200) {
-      carousel = (response.body as List).map<String>((e) => e.toString()).toList();
+      carousel = (response.data as List).map<String>((e) => e.toString()).toList();
     }
 
     isCarouselLoaded = true;
@@ -62,10 +64,10 @@ class AppController extends GetxController {
   }
 
   Future<void> loadBooks() async {
-    final response = await Requests.fetchData('/api/get-books/');
+    final response = await client.dio.get('/api/get-books/');
 
     if (response.statusCode == 200) {
-      books = Book.fromListMap(response.body);
+      books = Book.fromListMap(response.data);
       isBookLoaded = true;
 
       // popularBooks = shuffler(books.where((book) => book.genres.where((genre) => [4, 3, 9, 7].contains(genre.id)).isNotEmpty).toList());
@@ -80,18 +82,18 @@ class AppController extends GetxController {
   }
 
   Future<void> loadGenres() async {
-    final response = await Requests.fetchData('/api/genres/');
+    final response = await client.dio.get('/api/genres/');
 
     if (response.statusCode == 200) {
-      genres = List.from((response.body as List).map((e) => Genre.fromMap(e)));
+      genres = List.from((response.data as List).map((e) => Genre.fromMap(e)));
     }
   }
 
   Future<void> loadLocations() async {
-    final response = await Requests.fetchData('/api/locations/');
+    final response = await client.dio.get('/api/locations/');
 
     if (response.statusCode == 200) {
-      regions = (response.body as List).map<Region>((e) => Region.fromJson(e)).toList();
+      regions = (response.data as List).map<Region>((e) => Region.fromJson(e)).toList();
 
       regions.sort((a, b) => a.name.substring(0, 1).compareTo(b.name.substring(0, 1)));
     }

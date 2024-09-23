@@ -136,8 +136,8 @@ class _BookDetailScreenState extends State<BookDetailScreen> {
                   .map<Widget>((e) => Container(
                         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
                         decoration: BoxDecoration(
-                          color: Colors.blue[100],
-                          borderRadius: BorderRadius.circular(3),
+                          color: Colors.blue[50],
+                          borderRadius: BorderRadius.circular(100),
                         ),
                         child: Text(e.name),
                       ))
