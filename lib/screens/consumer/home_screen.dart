@@ -1,5 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'package:barcode_scan2/model/model.dart';
 import 'package:barcode_scan2/platform_wrapper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -62,7 +63,7 @@ class HomeScreenState extends State<HomeScreen> {
                 scale: 1.40,
                 child: InkWell(
                   onTap: () async {
-                    var result = await BarcodeScanner.scan();
+                    var result = await BarcodeScanner.scan(options: ScanOptions(android: AndroidOptions(appBarTitle: "Novelty")));
 
                     if (result.rawContent != '') {
                       Navigator.push(

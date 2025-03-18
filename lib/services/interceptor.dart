@@ -5,8 +5,8 @@ import 'package:novelty/services/local_storage.dart';
 
 class DioClient {
   final Dio _dio = Dio(BaseOptions(
-    baseUrl: 'http://192.168.132.65:8000',
-    // baseUrl: 'https://webnovelty.pythonanywhere.com',
+    // baseUrl: 'http://192.168.132.65:8000',
+    baseUrl: 'https://webnovelty.pythonanywhere.com',
 
     headers: {'Content-Type': 'application/json'},
   ));
@@ -26,9 +26,6 @@ class DioClient {
           }
 
           return handler.next(options);
-        },
-        onResponse: (response, handler) {
-          return handler.next(response);
         },
         onError: (e, handler) {
           debugPrint('Error $e');

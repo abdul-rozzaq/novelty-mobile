@@ -5,11 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:novelty/components/buttons.dart';
 import 'package:novelty/components/cunsomer_htbook_widget.dart';
+import 'package:novelty/controllers/app_controller.dart';
 import 'package:novelty/models/book_model.dart';
 import 'package:novelty/screens/consumer/news_screen.dart';
 import 'package:novelty/screens/consumer/search_screen.dart';
 import 'package:novelty/screens/consumer/select_location_screen.dart';
-import 'package:novelty/controllers/app_controller.dart';
 
 class HomeTab extends StatefulWidget {
   const HomeTab({super.key});

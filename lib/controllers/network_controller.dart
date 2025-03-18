@@ -6,12 +6,12 @@ import 'package:novelty/controllers/app_controller.dart';
 class NetworkController extends GetxController {
   final Connectivity connectivity = Connectivity();
 
-  @override
-  void onInit() async {
-    super.onInit();
+  // @override
+  // void onInit() async {
+  //   super.onInit();
 
-    connectivity.onConnectivityChanged.listen(updateStatus);
-  }
+  //   connectivity.onConnectivityChanged.listen(updateStatus);
+  // }
 
   updateStatus(ConnectivityResult result) {
     if (result == ConnectivityResult.none) {
@@ -42,7 +42,7 @@ class NetworkController extends GetxController {
   }
 
   firstCheck() async {
-    ConnectivityResult result = await connectivity.checkConnectivity();
-    updateStatus(result);
+    // ConnectivityResult result = await connectivity.checkConnectivity();
+    // updateStatus(result);
   }
 }

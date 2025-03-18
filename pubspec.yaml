@@ -38,10 +38,10 @@ dependencies:
   barcode_scan2:
   shared_preferences: ^2.2.2
   mask_text_input_formatter: ^2.7.0
-  pinput: ^3.0.1
+  pinput: ^5.0.1
   get: ^4.6.6
-  connectivity_plus: ^5.0.2
-  objectbox: ^2.4.0
+  connectivity_plus: ^6.1.3
+  objectbox: ^4.1.0
   get_storage: ^2.1.1
   cached_network_image: ^3.3.1
   flutter_cache_manager: ^3.3.1
@@ -56,7 +56,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  flutter_lints: ^2.0.0
+  flutter_lints: ^5.0.0
 
 flutter:
   uses-material-design: true
